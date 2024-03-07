@@ -25,3 +25,29 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Archivos generados por Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+build/
+
+# Archivos de Android
+android/app/debug.keystore
+android/app/key.properties
+
+# Archivos de iOS
+ios/Pods/
+ios/Flutter/.last_build_id
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/flutter_assets/
+
+
+# Otros
+.DS_Store
+*.log
+.idea/
+.vscode/
