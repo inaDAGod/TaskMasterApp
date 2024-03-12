@@ -65,6 +65,8 @@ class LoginPage extends StatelessWidget {
                 // sign in button
                 MyButton(
                   onTap: signUserIn,
+                  buttonText: 'Iniciar Sesión',
+                  buttonColor: const Color(0xFF769EBB),
                 ),
           
                 const SizedBox(height: 30),
