@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
+import 'login_page.dart';
 
 
 class RegisterPage extends StatelessWidget {
@@ -37,7 +38,8 @@ class RegisterPage extends StatelessWidget {
                   style: TextStyle(
                     color: Color.fromARGB(255, 4, 4, 4),
                     fontSize: 30,
-                    
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Times new roman',
                   ),
                 ),
           
@@ -94,12 +96,21 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Iniciar sesion',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // Navegar a la página RegisterPage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                      child: const Text(
+                        'Iniciar Sesión',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

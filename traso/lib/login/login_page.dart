@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:traso/login/register_page.dart';
 
 import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
@@ -36,7 +37,8 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(
                     color: Color.fromARGB(255, 4, 4, 4),
                     fontSize: 30,
-                    
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Times new roman',
                   ),
                 ),
           
@@ -86,12 +88,21 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Registrate ahora',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // Navegar a la página RegisterPage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RegisterPage()),
+                        );
+                      },
+                      child: const Text(
+                        'Registrate ahora',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
