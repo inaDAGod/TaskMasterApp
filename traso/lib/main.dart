@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login/welcome_page.dart';
+import 'login/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
+      home: AuthPage(),
     );
   }
 }

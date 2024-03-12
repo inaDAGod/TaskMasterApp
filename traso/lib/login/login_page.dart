@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:traso/login/register_page.dart';
-
+import 'auth_services.dart';
 import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
 
@@ -9,11 +9,10 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() {}
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class LoginPage extends StatelessWidget {
           
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: 'Correo electronico',
                   obscureText: false,
                 ),
@@ -66,7 +65,7 @@ class LoginPage extends StatelessWidget {
           
                 // sign in button
                 MyButton(
-                  onTap: signUserIn,
+                  onTap: () => AuthServices.signUserIn(emailController.text, passwordController.text, context),
                   buttonText: 'Iniciar Sesión',
                   buttonColor: const Color(0xFF769EBB),
                 ),
