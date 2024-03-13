@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'Task.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: TaskListScreen(),
-  ));
-}
+
 
 class TaskListScreen extends StatefulWidget {
   @override
