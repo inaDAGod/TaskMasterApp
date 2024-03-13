@@ -17,7 +17,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   List<Task> tasks = [
     Task(
       title: 'Task 1',
-      category: 'Category 1',
+      category: 'Estudio',
       deadline: DateTime.now(),
       description: 'Description for Task 1',
       remindMe: true,
@@ -25,7 +25,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
     ),
     Task(
       title: 'Task 2',
-      category: 'Category 2',
+      category: 'Personal',
       deadline: DateTime.now(),
       description: 'Description for Task 2',
       remindMe: false,
@@ -33,7 +33,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
     ),
     Task(
       title: 'Task 3',
-      category: 'Category 3',
+      category: 'Favoritas',
       deadline: DateTime.now(),
       description: 'Description for Task 3',
       remindMe: true,
@@ -41,7 +41,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
     ),
     Task(
       title: 'Task 4',
-      category: 'Category 1',
+      category: 'Favoritas',
       deadline: DateTime.now(),
       description: 'Description for Task 4',
       remindMe: true,
@@ -120,9 +120,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            _buildCategoryToggleButton('Category 1'),
-            _buildCategoryToggleButton('Category 2'),
-            _buildCategoryToggleButton('Category 3'),
+            _buildCategoryToggleButton('Estudio'),
+            _buildCategoryToggleButton('Personal'),
+            _buildCategoryToggleButton('Favoritas'),
             _buildCategoryToggleButton('All'),
           ],
         ),
