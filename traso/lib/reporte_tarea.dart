@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ReporteTarea extends StatelessWidget {
+  const ReporteTarea({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reporte de Tareas'),
+        title: const Text('Reporte de Tareas'),
         centerTitle: true,
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
+      body:  Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Center(
               child: Text(
                 'REPORTE DE TAREAS',
@@ -24,7 +26,7 @@ class ReporteTarea extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: 25),
             Text(
               'Tareas Pendientes: ',
               style: TextStyle(
