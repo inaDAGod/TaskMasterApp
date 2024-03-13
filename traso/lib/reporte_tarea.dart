@@ -34,7 +34,8 @@ class ReporteTarea extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text('Lista de tareas pendientes...'),
+            Text('Tarea Redes de computadoras: completar tarea de cisco'),
+            Text('Tarea Sistemas de información 2: Analisis de datos'),
             SizedBox(height: 20),
             Text(
               'Tareas en Curso: ',
@@ -46,7 +47,9 @@ class ReporteTarea extends StatelessWidget {
             ),
             SizedBox(height: 20),
             // Aquí puedes generar dinámicamente la lista de tareas en curso
-            Text('Lista de tareas en curso...'),
+            Text('Tarea cristología: resumen de la vida de Jesús'),
+            Text(
+                'Tarea Antropología: Autoanálisis de las decisiones tomadas en el pasado'),
             SizedBox(height: 20),
             Text(
               'Tareas Completadas: ',
@@ -58,7 +61,9 @@ class ReporteTarea extends StatelessWidget {
             ),
             SizedBox(height: 20),
             // Aquí puedes generar dinámicamente la lista de tareas completadas
-            Text('Lista de tareas completadas...'),
+            Text(
+                'Tarea Administrción de empresas: Análisis foda de una organización'),
+            Text('Tarea Software: Aplicación móvil Traso'),
           ],
         ),
       ),
