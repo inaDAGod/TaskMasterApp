@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
 import 'personalizacion.dart';
-import 'reporte_tarea.dart'; // Asegúrate de importar tu clase de reporte_tarea.dart
+import 'reporte_tarea.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeData _currentTheme = ThemeData.light();
+
+  void _changeBackgroundColor(Color color) {
+    setState(() {
+      _currentTheme = ThemeData.light().copyWith(
+        scaffoldBackgroundColor: color,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'App de Personalización',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(),
+      theme: _currentTheme,
+      home: MyHomePage(changeBackgroundColor: _changeBackgroundColor),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  final Function(Color) changeBackgroundColor;
+
+  MyHomePage({required this.changeBackgroundColor});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +53,10 @@ class MyHomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PersonalizacionPage()),
+                    builder: (context) => PersonalizacionPage(
+                      changeBackgroundColor: changeBackgroundColor,
+                    ),
+                  ),
                 );
               },
               child: Text('Personalización'),
