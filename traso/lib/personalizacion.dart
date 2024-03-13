@@ -25,7 +25,7 @@ class PersonalizacionPage extends StatelessWidget {
                   Color(0xFFDFD25E),
                   Color(0xFFE7CD7F),
                   "assets/bob_esponja.jpg",
-                  () => changeBackgroundColor(Color(0xFFDFD25E)),
+                  () => changeBackgroundColor(Color(0xFFFFF4BA)),
                 ),
                 _buildCharacterButton(
                   "Patricio",
@@ -84,6 +84,7 @@ class PersonalizacionPage extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Times new roman',
             ),
           ),
         ],
