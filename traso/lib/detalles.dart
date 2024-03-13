@@ -32,16 +32,17 @@ class _ModificarTareaState extends State<ModificarTarea> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 184, 110, 224),
+      backgroundColor: Color.fromARGB(255, 192, 167, 205),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Aquí se muestra una imagen 
+            // Aquí se muestra una imagen
             Expanded(
               child: Center(
-                child: Image.asset('https://i.pinimg.com/564x/d5/1c/46/d51c468db191d51e5545e494c35ad9b9.jpg'),
+                child: Image.asset(
+                    'assets/bob.jpg'),
               ),
             ),
             SizedBox(height: 30),
@@ -63,7 +64,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
               decoration: InputDecoration(
                 hintText: 'Selecciona la categoría',
               ),
-              // Combobox para seleccionar la categoría 
+              // Combobox para seleccionar la categoría
               items: <String>['Categoria 1', 'Categoria 2', 'Categoria 3']
                   .map((String value) {
                 return DropdownMenuItem<String>(
@@ -133,23 +134,17 @@ class _ModificarTareaState extends State<ModificarTarea> {
               onChanged: (String? value) {},
             ),
             SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Acción para editar la tarea
-                  },
-                  child: Text('Editar'),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Acción para guardar la tarea
+                },
+                child: Text('Guardar'),
+                style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all<Size>(Size(100, 50)),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 82, 113, 139)),
                 ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // borrar la tarea
-                  },
-                  child: Text('Borrar'),
-                ),
-              ],
+              ),
             ),
             SizedBox(height: 10),
             Row(
@@ -164,7 +159,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
                 SizedBox(width: 5),
                 Checkbox(
-                  // Checkbox para recordar 
+                  // Checkbox para recordar
                   value: _recuerdame,
                   onChanged: (bool? value) {
                     setState(() {
@@ -175,11 +170,29 @@ class _ModificarTareaState extends State<ModificarTarea> {
               ],
             ),
             Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Acción para guardar la tarea
-              },
-              child: Text('Guardar'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción para editar la tarea
+                  },
+                  child: Text('Editar'),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 82, 113, 139)),
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    // borrar la tarea
+                  },
+                  child: Text('Borrar'),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 82, 113, 139)),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -187,7 +200,6 @@ class _ModificarTareaState extends State<ModificarTarea> {
     );
   }
 }
-
 
 void main() {
   runApp(MaterialApp(
