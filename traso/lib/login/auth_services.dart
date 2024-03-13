@@ -62,6 +62,41 @@ class AuthServices  {
       },
     );
   }
+
+
+  static Future<void> signUserUp(String email, String password,String confirmPassword, BuildContext context) async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    // try sign in
+    try {
+      if(password == confirmPassword){
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+         // ignore: use_build_context_synchronously
+         Navigator.pop(context);
+      }else{
+        Navigator.pop(context);
+        wrongMessage('No coinciden las contraseñas', context);
+      }
+     
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      wrongMessage(e.code, context);
+
+     
+    }
+  }
   static Future<void> signUserOut()async{
     FirebaseAuth.instance.signOut();
   }

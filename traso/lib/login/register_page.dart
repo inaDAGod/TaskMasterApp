@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'auth_services.dart';
 import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
 
@@ -14,14 +15,14 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
   final confirmpasswordController = TextEditingController();
 
-  // sign user in method
-  void signUserUp() {}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: 'Correo electronico',
                   obscureText: false,
                 ),
@@ -81,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 // sign in button
                 MyButton(
-                  onTap: signUserUp,
+                   onTap: () => AuthServices.signUserUp(emailController.text, passwordController.text, confirmpasswordController.text, context),
                   buttonText: 'Registrarse',
                   buttonColor: const Color(0xFF769EBB),
                 ),
