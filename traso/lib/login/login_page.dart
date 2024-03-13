@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:traso/login/register_page.dart';
 import 'auth_services.dart';
 import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
 
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -92,13 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        // Navegar a la página RegisterPage
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RegisterPage()),
-                        );
-                      },
+                      onTap: widget.onTap,
                       child: const Text(
                         'Registrate ahora',
                         style: TextStyle(

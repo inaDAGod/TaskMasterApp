@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 
 import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
-import 'login_page.dart';
 
 
-class RegisterPage extends StatelessWidget {
-  RegisterPage({super.key});
+class RegisterPage extends StatefulWidget {
+  final Function()? onTap;
+  const RegisterPage({super.key, required this.onTap});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final usernameController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final confirmpasswordController = TextEditingController();
 
   // sign user in method
@@ -98,13 +105,7 @@ class RegisterPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        // Navegar a la página RegisterPage
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()),
-                        );
-                      },
+                      onTap: widget.onTap,
                       child: const Text(
                         'Iniciar Sesión',
                         style: TextStyle(

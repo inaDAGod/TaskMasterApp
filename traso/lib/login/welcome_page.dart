@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:traso/login/login_page.dart';
-import 'package:traso/login/register_page.dart';
-
-import 'loginComponents/my_button.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -42,31 +38,11 @@ class _WelcomePageState extends State<WelcomePage> {
           
                 const SizedBox(height: 30),
           
-                // sign in button
-                MyButton(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                    );
-                  },
-                  buttonText: 'Iniciar Sesión',
-                  buttonColor: const Color(0xFF9A9DED),
-                ),
-          
+               
                 const SizedBox(height: 30),
 
                 // sign up button
-                MyButton(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()),
-                    );
-                  },
-                  buttonText: 'Registrarse',
-                  buttonColor: const Color(0xFF769EBB),
-                ),
+                
           
                 const SizedBox(height: 30),
           
