@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'task.dart';
+import 'Task.dart';
 
 class AnadirTarea extends StatefulWidget {
   @override
