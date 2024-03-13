@@ -1,57 +1,68 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:traso/login/welcome_page.dart';
 
-import 'home_page.dart';
 class AuthServices  {
+
   static Future<void> signUserIn(String email, String password, BuildContext context) async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    // try sign in
     try {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      // pop the loading circle
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    } catch (error) {
-
-      print("Error durante la autenticación: $error");
-      // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      if(e.code == 'user-not-found'){
+        wrongMessage('Usuario no encontrado', context);
+      }
+      else{
+        if(e.code == 'wrong-password'){
+           wrongMessage('Contraseña equivocada', context);
+        }
+        else{
+          if(e.code == 'invalid-credential'){
+            wrongMessage('Parece que algo salio mal', context);
+          }
+          else{
+             wrongMessage(e.code, context);
+          }
+          
+        }
+      }
+     
     }
   }
-
-  static Future<void> signUserOut(BuildContext context)async{
-    try {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
-      FirebaseAuth.instance.signOut();
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomePage()),
-      );
-    } catch (error) {
-
-      print("Error durante la autenticación: $error");
-      // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
-    }
+  static void wrongMessage(String mensaje, BuildContext context){
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF9A9DED),
+          title: Center(
+            child: Text(
+              mensaje,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  static Future<void> signUserOut()async{
+    FirebaseAuth.instance.signOut();
   }
 }

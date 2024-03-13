@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () async {
-            await AuthServices.signUserOut(context);
+            await AuthServices.signUserOut();
           },
           icon: const Icon(Icons.logout),
         ),

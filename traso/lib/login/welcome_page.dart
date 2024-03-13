@@ -5,10 +5,14 @@ import 'package:traso/login/register_page.dart';
 import 'loginComponents/my_button.dart';
 
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
 
+class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +45,9 @@ class WelcomePage extends StatelessWidget {
                 // sign in button
                 MyButton(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
                   },
                   buttonText: 'Iniciar Sesión',

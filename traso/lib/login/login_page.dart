@@ -5,14 +5,17 @@ import 'loginComponents/my_button.dart';
 import 'loginComponents/my_textfield.dart';
 
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +28,23 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
           
-               Image.asset('lib/images/medusa.webp',
-               ),
-          
-                const SizedBox(height: 30),
-          
-                // welcome back, you've been missed!
-                const Text(
-                  'Bienvenidx de nuevo!',
+               const Text(
+                  'T R A S O',
                   style: TextStyle(
                     color: Color.fromARGB(255, 4, 4, 4),
-                    fontSize: 30,
+                    fontSize: 60,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Times new roman',
                   ),
                 ),
           
                 const SizedBox(height: 25),
+          
+                Image.asset('lib/images/trasoIcon.png',
+                height: 300,
+               ),
+          
+                const SizedBox(height: 30),
           
                 // username textfield
                 MyTextField(

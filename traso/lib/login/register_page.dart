@@ -102,7 +102,7 @@ class RegisterPage extends StatelessWidget {
                         // Navegar a la página RegisterPage
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => const LoginPage()),
                         );
                       },
                       child: const Text(
