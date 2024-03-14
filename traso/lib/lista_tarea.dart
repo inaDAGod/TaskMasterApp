@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'task.dart';
+import 'package:traso/login/welcome_page.dart'; // Import your welcome page
+import 'reporte_tarea.dart'; // Import your reporte_tarea.dart page
+//import 'personalizacion.dart'; // Import your personalizacion.dart page
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -227,24 +230,24 @@ class TaskListScreenState extends State<TaskListScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
-                // Add logout logic
                 Navigator.pop(context); // Close the bottom sheet
+                Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomePage())); // Navigate to welcome_page.dart
               },
             ),
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Registro'),
               onTap: () {
-                // Add registration logic
                 Navigator.pop(context); // Close the bottom sheet
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ReporteTarea())); // Navigate to reporte_tarea.dart
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Personalizar'),
               onTap: () {
-                // Add customization logic
                 Navigator.pop(context); // Close the bottom sheet
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalizacionPage())); // Navigate to personalizacion.dart
               },
             ),
           ],
@@ -296,3 +299,4 @@ class TaskListScreenState extends State<TaskListScreen> {
     return taskLists;
   }
 }
+
