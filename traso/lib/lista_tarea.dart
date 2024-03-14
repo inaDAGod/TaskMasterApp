@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
+import 'login/auth_services.dart';
 import 'task.dart';
 import 'package:traso/login/welcome_page.dart'; // Import your welcome page
 import 'reporte_tarea.dart'; // Import your reporte_tarea.dart page
@@ -229,10 +230,10 @@ class TaskListScreenState extends State<TaskListScreen> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context); // Close the bottom sheet
-                Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomePage())); // Navigate to welcome_page.dart
-              },
+              onTap: () async {
+                    Navigator.pop(context);
+                    await AuthServices.signUserOut();
+                },
             ),
             ListTile(
               leading: const Icon(Icons.person),
