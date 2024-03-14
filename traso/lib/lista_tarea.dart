@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
-import 'Task.dart';
+import 'task.dart';
 
-void main() {
-  runApp(const _TaskListScreen());
-}
-
-class _TaskListScreen extends StatefulWidget {
-  const _TaskListScreen({Key? key}) : super(key: key);
+class TaskListScreen extends StatefulWidget {
+  const TaskListScreen({Key? key}) : super(key: key);
 
   @override
-  _TaskListScreenState createState() => _TaskListScreenState();
+  TaskListScreenState createState() => TaskListScreenState();
 }
 
-class _TaskListScreenState extends State<_TaskListScreen> {
+class TaskListScreenState extends State<TaskListScreen> {
   List<Task> tasks = [
     Task(
       title: 'Task 1',
@@ -84,18 +80,46 @@ class _TaskListScreenState extends State<_TaskListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Traso',
-          style: TextStyle(
-            fontFamily: 'Times New Roman',
-            fontSize: 24,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Column(
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            decoration: const BoxDecoration(
+              color: Color(0xFFFFF4BA),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Traso',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 25),
+                IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.black),
+                  onPressed: () {
+                    _showBottomSheet(context);
+                  },
+                ),
+              ],
+            ),
+          ),
           _buildCategoryFilter(),
           Expanded(
             child: ListView(
@@ -109,7 +133,7 @@ class _TaskListScreenState extends State<_TaskListScreen> {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: _buildStatusFilter(),
+      bottomNavigationBar: _buildStatusFilter(context),
     );
   }
 
@@ -147,12 +171,12 @@ class _TaskListScreenState extends State<_TaskListScreen> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: Text(category, style: const TextStyle(color: Colors.white)),
+        child: Text(category, style: const TextStyle(color: Colors.black)),
       ),
     );
   }
 
-  Widget _buildStatusFilter() {
+  Widget _buildStatusFilter(BuildContext context) {
     return BottomAppBar(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -188,8 +212,44 @@ class _TaskListScreenState extends State<_TaskListScreen> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: Text(status, style: const TextStyle(color: Colors.white)),
+        child: Text(status, style: const TextStyle(color: Colors.black)),
       ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                // Add logout logic
+                Navigator.pop(context); // Close the bottom sheet
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Registro'),
+              onTap: () {
+                // Add registration logic
+                Navigator.pop(context); // Close the bottom sheet
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Personalizar'),
+              onTap: () {
+                // Add customization logic
+                Navigator.pop(context); // Close the bottom sheet
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
