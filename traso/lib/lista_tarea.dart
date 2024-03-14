@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'Task.dart';
 
+void main() {
+  runApp(const _TaskListScreen());
+}
 
+class _TaskListScreen extends StatefulWidget {
+  const _TaskListScreen({Key? key}) : super(key: key);
 
-class TaskListScreen extends StatefulWidget {
   @override
   _TaskListScreenState createState() => _TaskListScreenState();
 }
 
-class _TaskListScreenState extends State<TaskListScreen> {
+class _TaskListScreenState extends State<_TaskListScreen> {
   List<Task> tasks = [
     Task(
       title: 'Task 1',
@@ -51,7 +55,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   @override
   void initState() {
     super.initState();
-    filteredTasks = List.from(tasks); // Inicializa filteredTasks con todas las tareas
+    filteredTasks = List.from(tasks);
     selectedCategory = 'All';
     selectedStatus = 'Todos';
   }
@@ -81,7 +85,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Traso',
           style: TextStyle(
             fontFamily: 'Times New Roman',
@@ -95,14 +99,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
           _buildCategoryFilter(),
           Expanded(
             child: ListView(
-              children: _buildTaskLists(), // Crear listas de tareas según el estado
+              children: _buildTaskLists(),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _navigateToAddTaskScreen(context),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: _buildStatusFilter(),
@@ -134,16 +138,16 @@ class _TaskListScreenState extends State<TaskListScreen> {
           _filterTasks(selectedCategory, selectedStatus);
         });
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.0),
-        child: Text(category, style: TextStyle(color: Colors.white)),
-      ),
       style: TextButton.styleFrom(
-        backgroundColor: selectedCategory == category ? Color(0xFFFFF4BA) : Color(0xFFFFC0CB),
+        backgroundColor: selectedCategory == category ? const Color(0xFFFFF4BA) : const Color(0xFFFFC0CB),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Text(category, style: const TextStyle(color: Colors.white)),
       ),
     );
   }
@@ -175,16 +179,16 @@ class _TaskListScreenState extends State<TaskListScreen> {
           _filterTasks(selectedCategory, selectedStatus);
         });
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.0),
-        child: Text(status, style: TextStyle(color: Colors.white)),
-      ),
       style: TextButton.styleFrom(
-        backgroundColor: selectedStatus == status ? Color(0xFFFFCF76) : Color(0xFFFFF4BA),
+        backgroundColor: selectedStatus == status ? const Color(0xFFFFCF76) : const Color(0xFFFFF4BA),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Text(status, style: const TextStyle(color: Colors.white)),
       ),
     );
   }
@@ -203,12 +207,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 status,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: filteredByStatus.length,
               itemBuilder: (context, index) {
                 Task task = filteredByStatus[index];
