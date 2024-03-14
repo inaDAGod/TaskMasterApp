@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 class PersonalizacionPage extends StatelessWidget {
-  final Function(Color) changeBackgroundColor;
+  final Function(Color) onColorSelected;
 
   const PersonalizacionPage({
     Key? key,
-    required this.changeBackgroundColor,
+    required this.onColorSelected,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Personalización'),
+      ),
       body: Column(
         children: <Widget>[
           Container(
@@ -35,19 +38,15 @@ class PersonalizacionPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      _buildCharacterButton(
-                        "Bob Esponja",
-                        const Color(0xFFDFD25E),
-                        const Color(0xFFE7CD7F),
+                      _buildImageButton(
                         "assets/bob_esponja.jpg",
-                        () => changeBackgroundColor(const Color(0xFFFFF4BA)),
+                        const Color(0xFFFFF4BA),
+                        context,
                       ),
-                      _buildCharacterButton(
-                        "Patricio",
-                        Colors.pink,
-                        Colors.green,
+                      _buildImageButton(
                         "assets/patricio.jpg",
-                        () => changeBackgroundColor(const Color(0xFFFFC0CB)),
+                        const Color(0xFFFFC0CB),
+                        context,
                       ),
                     ],
                   ),
@@ -55,19 +54,15 @@ class PersonalizacionPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      _buildCharacterButton(
-                        "Dark Plankton",
-                        Colors.grey,
-                        Colors.blueGrey,
+                      _buildImageButton(
                         "assets/plankton.jpg",
-                        () => changeBackgroundColor(const Color(0xFF769EBB)),
+                        const Color(0xFF769EBB),
+                        context,
                       ),
-                      _buildCharacterButton(
-                        "Gary",
-                        const Color(0xFFD6D7FE),
-                        const Color(0xFF9A9DED),
+                      _buildImageButton(
                         "assets/gary.jpg",
-                        () => changeBackgroundColor(const Color(0xFF9A9DED)),
+                        const Color(0xFF9A9DED),
+                        context,
                       ),
                     ],
                   ),
@@ -80,32 +75,16 @@ class PersonalizacionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCharacterButton(
-    String name,
-    Color primary,
-    Color secondary,
-    String imagePath,
-    VoidCallback onPressed,
-  ) {
+  Widget _buildImageButton(String imagePath, Color color, BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Column(
-        children: [
-          Image.asset(
-            imagePath,
-            width: 160,
-            height: 150,
-          ),
-          const SizedBox(height: 10),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Times new roman',
-            ),
-          ),
-        ],
+      onTap: () {
+        onColorSelected(color);
+        Navigator.pop(context, color);
+      },
+      child: Image.asset(
+        imagePath,
+        width: 160,
+        height: 150,
       ),
     );
   }
