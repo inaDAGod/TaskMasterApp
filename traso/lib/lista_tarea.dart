@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'login/auth_services.dart';
-import 'task.dart';
-import 'package:traso/login/welcome_page.dart'; // Import your welcome page
+import 'task.dart'; // Import your welcome page
 import 'reporte_tarea.dart'; // Import your reporte_tarea.dart page
 //import 'personalizacion.dart'; // Import your personalizacion.dart page
 
@@ -56,7 +55,7 @@ class TaskListScreenState extends State<TaskListScreen> {
   void initState() {
     super.initState();
     filteredTasks = List.from(tasks);
-    selectedCategory = 'All';
+    selectedCategory = 'Todas';
     selectedStatus = 'Todos';
   }
 
@@ -75,7 +74,7 @@ class TaskListScreenState extends State<TaskListScreen> {
 
   void _filterTasks(String category, String status) {
     filteredTasks = tasks.where((task) {
-      if (category != 'All' && task.category != category) return false;
+      if (category != 'Todas' && task.category != category) return false;
       if (status != 'Todos' && task.status != status) return false;
       return true;
     }).toList();
@@ -102,11 +101,11 @@ class TaskListScreenState extends State<TaskListScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
+                const Expanded(
                   child: Center(
                     child: Text(
                       'Traso',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -151,7 +150,7 @@ class TaskListScreenState extends State<TaskListScreen> {
             _buildCategoryToggleButton('Estudio'),
             _buildCategoryToggleButton('Personal'),
             _buildCategoryToggleButton('Favoritas'),
-            _buildCategoryToggleButton('All'),
+            _buildCategoryToggleButton('Todas'),
           ],
         ),
       ),
