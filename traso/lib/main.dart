@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login/auth_page.dart';
+//import 'login/auth_page.dart';
 import 'reporte_tarea.dart';
 import 'personalizacion.dart';
 import 'package:firebase_core/firebase_core.dart';

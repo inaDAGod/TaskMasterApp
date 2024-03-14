@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'task.dart';
-import 'package:traso/login/welcome_page.dart'; // Import your welcome page
+//import 'welcome_page.dart'; // Import your welcome page
 import 'reporte_tarea.dart'; // Import your reporte_tarea.dart page
-//import 'personalizacion.dart'; // Import your personalizacion.dart page
+import 'personalizacion.dart'; // Import your personalizacion.dart page
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -231,7 +231,7 @@ class TaskListScreenState extends State<TaskListScreen> {
               title: const Text('Logout'),
               onTap: () {
                 Navigator.pop(context); // Close the bottom sheet
-                Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomePage())); // Navigate to welcome_page.dart
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomePage())); // Navigate to welcome_page.dart
               },
             ),
             ListTile(
@@ -239,7 +239,7 @@ class TaskListScreenState extends State<TaskListScreen> {
               title: const Text('Registro'),
               onTap: () {
                 Navigator.pop(context); // Close the bottom sheet
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ReporteTarea())); // Navigate to reporte_tarea.dart
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ReporteTarea())); // Navigate to reporte_tarea.dart
               },
             ),
             ListTile(
@@ -247,7 +247,19 @@ class TaskListScreenState extends State<TaskListScreen> {
               title: const Text('Personalizar'),
               onTap: () {
                 Navigator.pop(context); // Close the bottom sheet
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalizacionPage())); // Navigate to personalizacion.dart
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PersonalizacionPage(
+                      // Pass your logic to change the background color here
+                      changeBackgroundColor: (color) {
+                        // Your logic to change background color
+                        // This is a placeholder, replace it with your actual logic
+                        print("Changing background color to: $color");
+                      },
+                    ),
+                  ),
+                ); // Navigate to personalizacion.dart
               },
             ),
           ],
@@ -299,4 +311,3 @@ class TaskListScreenState extends State<TaskListScreen> {
     return taskLists;
   }
 }
-

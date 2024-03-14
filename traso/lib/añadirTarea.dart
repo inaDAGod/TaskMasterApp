@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'task.dart';
 
 class AnadirTarea extends StatefulWidget {
   @override
@@ -6,25 +7,32 @@ class AnadirTarea extends StatefulWidget {
 }
 
 class _AnadirTareaState extends State<AnadirTarea> {
-  bool _recuerdame = false;
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
+  String _selectedCategory = 'Estudio'; // Initialize with a default value
+  DateTime _selectedDate = DateTime.now(); // Initialize with the current date
+  bool _recuerdame = false;
 
   @override
   void dispose() {
+    _titleController.dispose(); // Dispose all controllers
+    _descriptionController.dispose();
     _dateController.dispose();
     super.dispose();
   }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101));
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
     if (picked != null) {
       setState(() {
-        _dateController.text =
-            '${picked.day}/${picked.month}/${picked.year}';
+        _selectedDate = picked;
+        _dateController.text = '${picked.day}/${picked.month}/${picked.year}';
       });
     }
   }
@@ -70,7 +78,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
-                  // Textbox para escribir el título de la tarea
+                  controller: _titleController,
                   decoration: InputDecoration(
                     hintText: 'Titulo de tu tarea',
                   ),
@@ -81,10 +89,10 @@ class _AnadirTareaState extends State<AnadirTarea> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 DropdownButtonFormField<String>(
+                  value: _selectedCategory,
                   decoration: InputDecoration(
                     hintText: 'Selecciona la categoría',
                   ),
-                  // Combobox para seleccionar la categoría de la tarea
                   items: <String>[
                     'Estudio',
                     'Personal',
@@ -96,7 +104,13 @@ class _AnadirTareaState extends State<AnadirTarea> {
                       child: Text(value),
                     );
                   }).toList(),
-                  onChanged: (String? value) {},
+                  onChanged: (String? value) {
+                    if (value != null) {
+                      setState(() {
+                        _selectedCategory = value;
+                      });
+                    }
+                  },
                 ),
                 SizedBox(height: 10),
                 Row(
@@ -131,7 +145,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
-                  // Textfield grande para escribir la descripción
+                  controller: _descriptionController,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
@@ -142,7 +156,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.notifications), // Icono de la campana
+                    Icon(Icons.notifications),
                     SizedBox(width: 5),
                     Text(
                       "Recuerdame:",
@@ -151,7 +165,6 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     ),
                     SizedBox(width: 5),
                     Checkbox(
-                      // Checkbox para recordar la tarea
                       value: _recuerdame,
                       onChanged: (bool? value) {
                         setState(() {
@@ -161,14 +174,21 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20), // Ajuste del espacio
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // Acción para guardar la tarea
+                    Task newTask = Task(
+                      title: _titleController.text,
+                      category: _selectedCategory,
+                      deadline: _selectedDate,
+                      description: _descriptionController.text,
+                      remindMe: _recuerdame,
+                    );
+                    Navigator.pop(context, newTask);
                   },
                   child: Text('Guardar'),
                 ),
-                SizedBox(height: 20), // Ajuste del espacio
+                SizedBox(height: 20),
               ],
             ),
           ),
@@ -177,11 +197,3 @@ class _AnadirTareaState extends State<AnadirTarea> {
     );
   }
 }
-//Solo era para correrlo directo sin usaar el main jiji
-/*
-void main() {
-  runApp(MaterialApp(
-    home: AnadirTarea(),
-  ));
-}
-*/

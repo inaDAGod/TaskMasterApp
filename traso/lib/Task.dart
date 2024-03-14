@@ -12,6 +12,6 @@ class Task {
     required this.deadline,
     required this.description,
     required this.remindMe,
-    this.status = 'pendiente', // Por defecto, la tarea se establece como pendiente
+    this.status = 'Pendiente', // Por defecto, la tarea se establece como pendiente
   });
 }
