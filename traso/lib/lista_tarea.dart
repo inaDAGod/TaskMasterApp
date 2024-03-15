@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'task.dart';
-import 'personalizacion.dart'; // Import your personalizacion.dart page
+import 'personalizacion.dart';
 import 'reporte_tarea.dart';
-//import 'login/welcome_page.dart';
-//import 'login/login_page.dart';
 import 'login/login_or_register_page.dart';
 
 class TaskListScreen extends StatefulWidget {
@@ -60,7 +58,7 @@ class TaskListScreenState extends State<TaskListScreen> {
     filteredTasks = List.from(tasks);
     selectedCategory = 'All';
     selectedStatus = 'Todos';
-    backgroundColor = Colors.white; // Initial background color
+    backgroundColor = Colors.white;
   }
 
   void _navigateToAddTaskScreen(BuildContext context) async {
@@ -244,10 +242,8 @@ class TaskListScreenState extends State<TaskListScreen> {
                 Navigator.pop(context);
                 Navigator.pushAndRemoveUntil(
                   context,
-                  //MaterialPageRoute(builder: (context) => WelcomePage()),
-                  //MaterialPageRoute(builder: (context) => LoginPage(onTap: null)),
                   MaterialPageRoute(builder: (context) => LoginOrRegisterPage()),
-                  (route) => false, // This removes all the routes until the WelcomePage
+                  (route) => false,
                 );
               },
             ),
@@ -316,6 +312,30 @@ class TaskListScreenState extends State<TaskListScreen> {
                       Text(task.description),
                       Text('Deadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year}'),
                     ],
+                  ),
+                  trailing: PopupMenuButton<String>(
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      PopupMenuItem<String>(
+                        value: 'modify',
+                        child: Text('Modificar'),
+                      ),
+                      if (task.status == 'Pendiente')
+                        PopupMenuItem<String>(
+                          value: 'delete',
+                          child: Text('Eliminar'),
+                        ),
+                    ],
+                    onSelected: (String value) {
+                      if (value == 'modify') {
+                        // Implement the modification logic here
+                      } else if (value == 'delete') {
+                        // Remove the task from the list
+                        setState(() {
+                          tasks.remove(task);
+                          _filterTasks(selectedCategory, selectedStatus);
+                        });
+                      }
+                    },
                   ),
                 );
               },
