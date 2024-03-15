@@ -9,24 +9,25 @@ class ReporteTarea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: const Color(0xFFFFF4BA), // Cambia el color de fondo aquí
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.arrow_back),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
-                  Text(
+                  const Text(
                     'REPORTE DE TAREAS',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 4, 4, 4),
+                      color: Colors.black, // Color del texto
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Times new roman',
@@ -34,8 +35,8 @@ class ReporteTarea extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25),
-              Text(
+              const SizedBox(height: 25),
+              const Text(
                 'Tareas Pendientes: ',
                 style: TextStyle(
                   fontSize: 22,
@@ -43,7 +44,7 @@ class ReporteTarea extends StatelessWidget {
                   fontFamily: 'Times new roman',
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Use ListView.builder to build TaskItems dynamically
               ListView.builder(
                 shrinkWrap: true,

@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traso/login/login_or_register_page.dart';
 import '../lista_tarea.dart';
-import 'home_page.dart';
-import 'login_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -16,7 +14,7 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return TaskListScreen();
+            return const TaskListScreen();
           }
 
           // user is NOT logged in

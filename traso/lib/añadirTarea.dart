@@ -1,15 +1,19 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'task.dart';
 
 class AnadirTarea extends StatefulWidget {
+  const AnadirTarea({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _AnadirTareaState createState() => _AnadirTareaState();
 }
 
 class _AnadirTareaState extends State<AnadirTarea> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   String _selectedCategory = 'Estudio'; // Initialize with a default value
   DateTime _selectedDate = DateTime.now(); // Initialize with the current date
   bool _recuerdame = false;
@@ -55,12 +59,12 @@ class _AnadirTareaState extends State<AnadirTarea> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
-                Center(
+                const SizedBox(height: 50),
+                const Center(
                   child: Text(
                     'AÑADIR',
                     style: TextStyle(
@@ -72,25 +76,25 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 30),
-                Text(
+                const SizedBox(height: 30),
+                const Text(
                   "Titulo:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
                   controller: _titleController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Titulo de tu tarea',
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   "Categoria:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Selecciona la categoría',
                   ),
                   items: <String>[
@@ -112,7 +116,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     }
                   },
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -120,7 +124,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Fin:",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -129,7 +133,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                             controller: _dateController,
                             readOnly: true,
                             onTap: () => _selectDate(context),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Selecciona una fecha',
                               suffixIcon: Icon(Icons.calendar_today),
                             ),
@@ -139,8 +143,8 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   "Descripcion:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -148,22 +152,22 @@ class _AnadirTareaState extends State<AnadirTarea> {
                   controller: _descriptionController,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Agregar descripción',
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.notifications),
-                    SizedBox(width: 5),
-                    Text(
+                    const Icon(Icons.notifications),
+                    const SizedBox(width: 5),
+                    const Text(
                       "Recuerdame:",
                       style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Checkbox(
                       value: _recuerdame,
                       onChanged: (bool? value) {
@@ -174,7 +178,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     Task newTask = Task(
@@ -186,9 +190,9 @@ class _AnadirTareaState extends State<AnadirTarea> {
                     );
                     Navigator.pop(context, newTask);
                   },
-                  child: Text('Guardar'),
+                  child: const Text('Guardar'),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

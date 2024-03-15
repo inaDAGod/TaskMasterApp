@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:traso/personalizacion.dart';
 import 'añadirTarea.dart';
-import 'task.dart';
-import 'personalizacion.dart';
-import 'reporte_tarea.dart';
-import 'login/login_or_register_page.dart';
+import 'login/auth_services.dart';
+import 'task.dart'; 
+import 'reporte_tarea.dart'; 
+
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class TaskListScreenState extends State<TaskListScreen> {
   void initState() {
     super.initState();
     filteredTasks = List.from(tasks);
-    selectedCategory = 'All';
+    selectedCategory = 'Todas';
     selectedStatus = 'Todos';
     backgroundColor = Colors.white;
   }
@@ -64,7 +65,7 @@ class TaskListScreenState extends State<TaskListScreen> {
   void _navigateToAddTaskScreen(BuildContext context) async {
     final newTask = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AnadirTarea()),
+      MaterialPageRoute(builder: (context) => const AnadirTarea()),
     );
     if (newTask != null) {
       setState(() {
@@ -76,7 +77,7 @@ class TaskListScreenState extends State<TaskListScreen> {
 
   void _filterTasks(String category, String status) {
     filteredTasks = tasks.where((task) {
-      if (category != 'All' && task.category != category) return false;
+      if (category != 'Todas' && task.category != category) return false;
       if (status != 'Todos' && task.status != status) return false;
       return true;
     }).toList();
@@ -110,11 +111,11 @@ class TaskListScreenState extends State<TaskListScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
+                const Expanded(
                   child: Center(
                     child: Text(
                       'Traso',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -159,7 +160,7 @@ class TaskListScreenState extends State<TaskListScreen> {
             _buildCategoryToggleButton('Estudio'),
             _buildCategoryToggleButton('Personal'),
             _buildCategoryToggleButton('Favoritas'),
-            _buildCategoryToggleButton('All'),
+            _buildCategoryToggleButton('Todas'),
           ],
         ),
       ),
@@ -238,14 +239,10 @@ class TaskListScreenState extends State<TaskListScreen> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginOrRegisterPage()),
-                  (route) => false,
-                );
-              },
+              onTap: () async {
+                    Navigator.pop(context);
+                    await AuthServices.signUserOut();
+                },
             ),
             ListTile(
               leading: const Icon(Icons.person),
@@ -315,25 +312,45 @@ class TaskListScreenState extends State<TaskListScreen> {
                   ),
                   trailing: PopupMenuButton<String>(
                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      PopupMenuItem<String>(
-                        value: 'modify',
-                        child: Text('Modificar'),
-                      ),
+                      if (task.status != 'Completado')
+                        const PopupMenuItem<String>(
+                          value: 'completado',
+                          child: Text('Completado'),
+                        ),
+                        if (task.status == 'Completado')
+                        const PopupMenuItem<String>(
+                          value: 'reporte',
+                          child: Text('Reporte'),
+                        ),
+                        if (task.status == 'Pendiente')
+                        const PopupMenuItem<String>(
+                          value: 'enCurso',
+                          child: Text('En Curso'),
+                        ),
                       if (task.status == 'Pendiente')
-                        PopupMenuItem<String>(
+                        const PopupMenuItem<String>(
                           value: 'delete',
                           child: Text('Eliminar'),
                         ),
                     ],
                     onSelected: (String value) {
-                      if (value == 'modify') {
-                        // Implement the modification logic here
+                      if (value == 'completado') {
+                         task.status = 'Completado';
                       } else if (value == 'delete') {
-                        // Remove the task from the list
+                        
                         setState(() {
                           tasks.remove(task);
                           _filterTasks(selectedCategory, selectedStatus);
                         });
+                      }else if(value == 'enCurso'){
+                        task.status = 'En Curso';
+                      }else if(value == 'reporte'){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReporteTarea(tasks: tasks),
+                          ),
+                        );
                       }
                     },
                   ),

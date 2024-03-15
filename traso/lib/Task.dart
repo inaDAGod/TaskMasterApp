@@ -1,3 +1,6 @@
+
+// ignore_for_file: file_names
+
 class Task {
   final String title;
   final String category;
@@ -16,11 +19,4 @@ class Task {
     this.status = 'Pendiente', // Por defecto, la tarea se establece como pendiente
   }): startDate = DateTime.now();
 
-  void startTask() {
-    status = 'En Curso';
-  }
-
-  void completeTask() {
-    status = 'Completado';
-  }
 }
