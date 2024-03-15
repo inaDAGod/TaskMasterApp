@@ -19,11 +19,4 @@ class Task {
     this.status = 'Pendiente', // Por defecto, la tarea se establece como pendiente
   }): startDate = DateTime.now();
 
-  void startTask() {
-    status = 'En Curso';
-  }
-
-  void completeTask() {
-    status = 'Completado';
-  }
 }

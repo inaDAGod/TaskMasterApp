@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:traso/personalizacion.dart';
 import 'añadirTarea.dart';
-import 'detalles.dart';
 import 'login/auth_services.dart';
-import 'task.dart'; // Import your welcome page
+import 'task.dart'; 
 import 'reporte_tarea.dart'; 
+
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -335,7 +335,7 @@ class TaskListScreenState extends State<TaskListScreen> {
                     ],
                     onSelected: (String value) {
                       if (value == 'completado') {
-
+                         task.status = 'Completado';
                       } else if (value == 'delete') {
                         
                         setState(() {
@@ -343,7 +343,7 @@ class TaskListScreenState extends State<TaskListScreen> {
                           _filterTasks(selectedCategory, selectedStatus);
                         });
                       }else if(value == 'enCurso'){
-
+                        task.status = 'En Curso';
                       }else if(value == 'reporte'){
                         Navigator.push(
                           context,
