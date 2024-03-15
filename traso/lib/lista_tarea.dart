@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
 import 'task.dart';
 import 'personalizacion.dart'; // Import your personalizacion.dart page
+import 'reporte_tarea.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -237,21 +238,27 @@ class TaskListScreenState extends State<TaskListScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
-                Navigator.pop(context); // Close the bottom sheet
+                Navigator.pop(context);
               },
             ),
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Registro'),
               onTap: () {
-                Navigator.pop(context); // Close the bottom sheet
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReporteTarea(tasks: tasks),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Personalizar'),
               onTap: () {
-                Navigator.pop(context); // Close the bottom sheet
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -259,7 +266,7 @@ class TaskListScreenState extends State<TaskListScreen> {
                       onColorSelected: changeBackgroundColor,
                     ),
                   ),
-                ); // Navigate to personalizacion.dart
+                );
               },
             ),
           ],

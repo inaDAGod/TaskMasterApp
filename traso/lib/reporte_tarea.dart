@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
+import 'task.dart';
 
 class ReporteTarea extends StatelessWidget {
-  const ReporteTarea({Key? key}) : super(key: key);
+  final List<Task> tasks;
+
+  const ReporteTarea({Key? key, required this.tasks}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text(
-                  'REPORTE DE TAREAS',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 4, 4, 4),
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Times new roman',
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ),
+                  Text(
+                    'REPORTE DE TAREAS',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 4, 4, 4),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Times new roman',
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 25),
               Text(
@@ -33,81 +44,34 @@ class ReporteTarea extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              TaskItem(
-                title: 'Tarea Redes de computadoras',
-                description: 'Completar cursos de Cisco',
-                category: 'Estudio',
-                startDate: '09/03/2024',
-                deadline: '14/03/2024',
-                elapsedTime: '5 días',
-              ),
-              TaskItem(
-                title: 'Comprar comida',
-                description: 'Comprar comida para mascotas',
-                category: 'Personal',
-                startDate: '15/04/2024',
-                deadline: '16/03/2024',
-                elapsedTime: '1 día',
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Tareas en Curso: ',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Times new roman',
-                ),
-              ),
-              SizedBox(height: 20),
-              TaskItem(
-                title: 'Mapa Mental',
-                description:
-                    'Realizar un mapa mental de la unidad 3 de administracion de empresas',
-                category: 'Estudio',
-                startDate: '13/03/2024',
-                deadline: '15/03/2024',
-                elapsedTime: '2 días',
-              ),
-              TaskItem(
-                title: 'Convivencia de Cristologia',
-                description: 'Comprar snacks para compartir',
-                category: 'Estudio',
-                startDate: '13/03/2024',
-                deadline: '15/03/2024',
-                elapsedTime: '2 días',
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Tareas Completadas: ',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Times new roman',
-                ),
-              ),
-              SizedBox(height: 20),
-              TaskItem(
-                title: 'Diapositivas para exposición',
-                description:
-                    'Completar las diapositivas para la exposición de dispositivos moviles',
-                category: 'Estudio',
-                startDate: '08/03/2024',
-                deadline: '11/03/2024',
-                elapsedTime: '3 días',
-              ),
-              TaskItem(
-                title: 'Cotizar cotillón',
-                description: 'Cotizar cotillón para el cumpleaños de Gabriel',
-                category: 'Personal',
-                startDate: '05/03/2024',
-                deadline: '13/03/2024',
-                elapsedTime: '8 días',
+              // Use ListView.builder to build TaskItems dynamically
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return TaskItem(
+                    title: tasks[index].title,
+                    description: tasks[index].description,
+                    category: tasks[index].category,
+                    startDate: tasks[index].startDate.toString(),
+                    deadline: tasks[index].deadline.toString(),
+                    elapsedTime: _calculateElapsedTime(tasks[index].startDate),
+                  );
+                },
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _calculateElapsedTime(DateTime startDate) {
+    Duration difference = DateTime.now().difference(startDate);
+    int days = difference.inDays;
+    int hours = difference.inHours % 24;
+    int minutes = difference.inMinutes % 60;
+    return '$days days, $hours hours, $minutes minutes ago';
   }
 }
 
