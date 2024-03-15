@@ -335,7 +335,11 @@ class TaskListScreenState extends State<TaskListScreen> {
                     ],
                     onSelected: (String value) {
                       if (value == 'completado') {
-                         task.status = 'Completado';
+                        setState(() {
+                          task.status = 'Completado';
+                          _filterTasks(selectedCategory, selectedStatus);
+                        });
+                         
                       } else if (value == 'delete') {
                         
                         setState(() {
@@ -343,7 +347,11 @@ class TaskListScreenState extends State<TaskListScreen> {
                           _filterTasks(selectedCategory, selectedStatus);
                         });
                       }else if(value == 'enCurso'){
-                        task.status = 'En Curso';
+                        setState(() {
+                         task.status = 'En Curso';
+                         _filterTasks(selectedCategory, selectedStatus);
+                        });
+                        
                       }else if(value == 'reporte'){
                         Navigator.push(
                           context,
