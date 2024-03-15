@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'añadirTarea.dart';
-import 'Task.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: TaskListScreen(),
-  ));
-}
+import 'task.dart';
+import 'personalizacion.dart'; // Import your personalizacion.dart page
+import 'reporte_tarea.dart';
+//import 'login/welcome_page.dart';
+//import 'login/login_page.dart';
+import 'login/login_or_register_page.dart';
 
 class TaskListScreen extends StatefulWidget {
+  const TaskListScreen({Key? key}) : super(key: key);
+
   @override
-  _TaskListScreenState createState() => _TaskListScreenState();
+  TaskListScreenState createState() => TaskListScreenState();
 }
 
-class _TaskListScreenState extends State<TaskListScreen> {
+class TaskListScreenState extends State<TaskListScreen> {
   List<Task> tasks = [
     Task(
       title: 'Task 1',
@@ -51,13 +52,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
   late List<Task> filteredTasks;
   late String selectedCategory;
   late String selectedStatus;
+  late Color backgroundColor;
 
   @override
   void initState() {
     super.initState();
-    filteredTasks = List.from(tasks); // Inicializa filteredTasks con todas las tareas
+    filteredTasks = List.from(tasks);
     selectedCategory = 'All';
     selectedStatus = 'Todos';
+    backgroundColor = Colors.white; // Initial background color
   }
 
   void _navigateToAddTaskScreen(BuildContext context) async {
@@ -81,35 +84,70 @@ class _TaskListScreenState extends State<TaskListScreen> {
     }).toList();
   }
 
+  void changeBackgroundColor(Color color) {
+    setState(() {
+      backgroundColor = color;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Traso',
-          style: TextStyle(
-            fontFamily: 'Times New Roman',
-            fontSize: 24,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      backgroundColor: backgroundColor,
       body: Column(
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            decoration: const BoxDecoration(
+              color: Color(0xFFFFF4BA),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Traso',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 25),
+                IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.black),
+                  onPressed: () {
+                    _showBottomSheet(context);
+                  },
+                ),
+              ],
+            ),
+          ),
           _buildCategoryFilter(),
           Expanded(
             child: ListView(
-              children: _buildTaskLists(), // Crear listas de tareas según el estado
+              children: _buildTaskLists(),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _navigateToAddTaskScreen(context),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: _buildStatusFilter(),
+      bottomNavigationBar: _buildStatusFilter(context),
     );
   }
 
@@ -138,21 +176,21 @@ class _TaskListScreenState extends State<TaskListScreen> {
           _filterTasks(selectedCategory, selectedStatus);
         });
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.0),
-        child: Text(category, style: TextStyle(color: Colors.white)),
-      ),
       style: TextButton.styleFrom(
-        backgroundColor: selectedCategory == category ? Color(0xFFFFF4BA) : Color(0xFFFFC0CB),
+        backgroundColor: selectedCategory == category ? const Color(0xFFFFF4BA) : const Color(0xFFFFC0CB),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
       ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Text(category, style: const TextStyle(color: Colors.black)),
+      ),
     );
   }
 
-  Widget _buildStatusFilter() {
+  Widget _buildStatusFilter(BuildContext context) {
     return BottomAppBar(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -179,17 +217,71 @@ class _TaskListScreenState extends State<TaskListScreen> {
           _filterTasks(selectedCategory, selectedStatus);
         });
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.0),
-        child: Text(status, style: TextStyle(color: Colors.white)),
-      ),
       style: TextButton.styleFrom(
-        backgroundColor: selectedStatus == status ? Color(0xFFFFCF76) : Color(0xFFFFF4BA),
+        backgroundColor: selectedStatus == status ? const Color(0xFFFFCF76) : const Color(0xFFFFF4BA),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
       ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Text(status, style: const TextStyle(color: Colors.black)),
+      ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  //MaterialPageRoute(builder: (context) => WelcomePage()),
+                  //MaterialPageRoute(builder: (context) => LoginPage(onTap: null)),
+                  MaterialPageRoute(builder: (context) => LoginOrRegisterPage()),
+                  (route) => false, // This removes all the routes until the WelcomePage
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Registro'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReporteTarea(tasks: tasks),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Personalizar'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PersonalizacionPage(
+                      onColorSelected: changeBackgroundColor,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -207,12 +299,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 status,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: filteredByStatus.length,
               itemBuilder: (context, index) {
                 Task task = filteredByStatus[index];

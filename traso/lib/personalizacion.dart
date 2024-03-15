@@ -1,93 +1,90 @@
 import 'package:flutter/material.dart';
 
 class PersonalizacionPage extends StatelessWidget {
-  final Function(Color) changeBackgroundColor;
+  final Function(Color) onColorSelected;
 
-  PersonalizacionPage({required this.changeBackgroundColor});
+  const PersonalizacionPage({
+    Key? key,
+    required this.onColorSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Personalización"),
-        centerTitle: true,
+        title: const Text('Personalización'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildCharacterButton(
-                  "Bob Esponja",
-                  Color(0xFFDFD25E),
-                  Color(0xFFE7CD7F),
-                  "assets/bob_esponja.jpg",
-                  () => changeBackgroundColor(Color(0xFFFFF4BA)),
-                ),
-                _buildCharacterButton(
-                  "Patricio",
-                  Colors.pink,
-                  Colors.green,
-                  "assets/patricio.jpg",
-                  () => changeBackgroundColor(Color(0xFFFFC0CB)),
-                ),
-              ],
+      body: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(top: 20),
+            child: const Text(
+              'PERSONALIZACION',
+              style: TextStyle(
+                color: Color.fromARGB(255, 4, 4, 4),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Times new roman',
+              ),
             ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildCharacterButton(
-                  "Dark Plankton",
-                  Colors.grey,
-                  Colors.blueGrey,
-                  "assets/plankton.jpg",
-                  () => changeBackgroundColor(Color(0xFF769EBB)),
-                ),
-                _buildCharacterButton(
-                  "Gary",
-                  Color(0xFFD6D7FE),
-                  Color(0xFF9A9DED),
-                  "assets/gary.jpg",
-                  () => changeBackgroundColor(Color(0xFF9A9DED)),
-                ),
-              ],
+          ),
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildImageButton(
+                        "assets/bob_esponja.jpg",
+                        const Color(0xFFFFF4BA),
+                        context,
+                      ),
+                      _buildImageButton(
+                        "assets/patricio.jpg",
+                        const Color(0xFFFFC0CB),
+                        context,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildImageButton(
+                        "assets/plankton.jpg",
+                        const Color(0xFF769EBB),
+                        context,
+                      ),
+                      _buildImageButton(
+                        "assets/gary.jpg",
+                        const Color(0xFF9A9DED),
+                        context,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildCharacterButton(
-    String name,
-    Color primary,
-    Color secondary,
-    String imagePath,
-    VoidCallback onPressed,
-  ) {
+  Widget _buildImageButton(String imagePath, Color color, BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Column(
-        children: [
-          Image.asset(
-            imagePath,
-            width: 160,
-            height: 150,
-          ),
-          SizedBox(height: 10),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Times new roman',
-            ),
-          ),
-        ],
+      onTap: () {
+        onColorSelected(color);
+        Navigator.pop(context, color);
+      },
+      child: Image.asset(
+        imagePath,
+        width: 160,
+        height: 150,
       ),
     );
   }

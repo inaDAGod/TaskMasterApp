@@ -1,72 +1,148 @@
 import 'package:flutter/material.dart';
+import 'task.dart';
 
 class ReporteTarea extends StatelessWidget {
+  final List<Task> tasks;
+
+  const ReporteTarea({Key? key, required this.tasks}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Reporte de Tareas'),
-        centerTitle: true,
-      ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Text(
-                'REPORTE DE TAREAS',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Text(
+                    'REPORTE DE TAREAS',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 4, 4, 4),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Times new roman',
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 25),
+              Text(
+                'Tareas Pendientes: ',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 4, 4, 4),
-                  fontSize: 30,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Times new roman',
                 ),
               ),
-            ),
-            const SizedBox(height: 25),
-            Text(
-              'Tareas Pendientes: ',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Times new roman',
+              SizedBox(height: 20),
+              // Use ListView.builder to build TaskItems dynamically
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return TaskItem(
+                    title: tasks[index].title,
+                    description: tasks[index].description,
+                    category: tasks[index].category,
+                    startDate: tasks[index].startDate.toString(),
+                    deadline: tasks[index].deadline.toString(),
+                    elapsedTime: _calculateElapsedTime(tasks[index].startDate),
+                  );
+                },
               ),
-            ),
-            SizedBox(height: 20),
-            Text('Tarea Redes de computadoras: completar tarea de cisco'),
-            Text('Tarea Sistemas de información 2: Analisis de datos'),
-            SizedBox(height: 20),
-            Text(
-              'Tareas en Curso: ',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Times new roman',
-              ),
-            ),
-            SizedBox(height: 20),
-            // Aquí puedes generar dinámicamente la lista de tareas en curso
-            Text('Tarea cristología: resumen de la vida de Jesús'),
-            Text(
-                'Tarea Antropología: Autoanálisis de las decisiones tomadas en el pasado'),
-            SizedBox(height: 20),
-            Text(
-              'Tareas Completadas: ',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Times new roman',
-              ),
-            ),
-            SizedBox(height: 20),
-            // Aquí puedes generar dinámicamente la lista de tareas completadas
-            Text(
-                'Tarea Administrción de empresas: Análisis foda de una organización'),
-            Text('Tarea Software: Aplicación móvil Traso'),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  String _calculateElapsedTime(DateTime startDate) {
+    Duration difference = DateTime.now().difference(startDate);
+    int days = difference.inDays;
+    int hours = difference.inHours % 24;
+    int minutes = difference.inMinutes % 60;
+    return '$days days, $hours hours, $minutes minutes ago';
+  }
+}
+
+class TaskItem extends StatelessWidget {
+  final String title;
+  final String description;
+  final String category;
+  final String startDate;
+  final String deadline;
+  final String elapsedTime;
+
+  const TaskItem({
+    required this.title,
+    required this.description,
+    required this.category,
+    required this.startDate,
+    required this.deadline,
+    required this.elapsedTime,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Times new roman',
+          ),
+        ),
+        Text(
+          'Descripción: $description',
+          style: const TextStyle(
+            fontSize: 12,
+            fontFamily: 'Times new roman',
+          ),
+        ),
+        Text(
+          'Categoria: $category',
+          style: const TextStyle(
+            fontSize: 12,
+            fontFamily: 'Times new roman',
+          ),
+        ),
+        Text(
+          'Fecha de inicio: $startDate',
+          style: const TextStyle(
+            fontSize: 12,
+            fontFamily: 'Times new roman',
+          ),
+        ),
+        Text(
+          'Deadline: $deadline',
+          style: const TextStyle(
+            fontSize: 12,
+            fontFamily: 'Times new roman',
+          ),
+        ),
+        Text(
+          'Tiempo transcurrido: $elapsedTime',
+          style: const TextStyle(
+            fontSize: 12,
+            fontFamily: 'Times new roman',
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 }
