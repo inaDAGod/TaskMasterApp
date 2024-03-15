@@ -3,6 +3,9 @@ import 'añadirTarea.dart';
 import 'task.dart';
 import 'personalizacion.dart'; // Import your personalizacion.dart page
 import 'reporte_tarea.dart';
+//import 'login/welcome_page.dart';
+//import 'login/login_page.dart';
+import 'login/login_or_register_page.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -239,6 +242,13 @@ class TaskListScreenState extends State<TaskListScreen> {
               title: const Text('Logout'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  //MaterialPageRoute(builder: (context) => WelcomePage()),
+                  //MaterialPageRoute(builder: (context) => LoginPage(onTap: null)),
+                  MaterialPageRoute(builder: (context) => LoginOrRegisterPage()),
+                  (route) => false, // This removes all the routes until the WelcomePage
+                );
               },
             ),
             ListTile(
