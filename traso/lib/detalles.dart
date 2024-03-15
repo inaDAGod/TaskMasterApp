@@ -72,7 +72,10 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 hintText: 'Selecciona la categoría',
               ),
               // Combobox para seleccionar la categoría
-              items: <String>['Study', 'Personal', 'Favorites', 'All']
+              items: <String>['Estudio',
+                    'Personal',
+                    'Favoritas',
+                    'Otro (varios)']
                   .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -131,7 +134,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 hintText: 'Selecciona el estado',
               ),
               // Combobox para seleccionar el estado de la tarea
-              items: <String>['Not started', 'In progress', 'Done']
+              items: <String>['Pendiente', 'En Curso', 'Completado']
                   .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -176,7 +179,6 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ],
             ),
-            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -189,16 +191,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                   ),
                   child: const Text('Editar'),
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // borrar la tarea
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 82, 113, 139)),
-                  ),
-                  child: const Text('Borrar'),
-                ),
+                
               ],
             ),
           ],

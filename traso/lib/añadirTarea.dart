@@ -84,7 +84,7 @@ class _AnadirTareaState extends State<AnadirTarea> {
                   ),
                 ),
                 SizedBox(height: 10),
-                Text(
+                const Text(
                   "Categoria:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),

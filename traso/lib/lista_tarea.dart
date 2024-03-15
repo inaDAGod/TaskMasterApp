@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:traso/personalizacion.dart';
 import 'añadirTarea.dart';
+import 'detalles.dart';
 import 'login/auth_services.dart';
 import 'task.dart'; // Import your welcome page
 import 'reporte_tarea.dart'; 
@@ -323,9 +324,14 @@ class TaskListScreenState extends State<TaskListScreen> {
                     ],
                     onSelected: (String value) {
                       if (value == 'modify') {
-                        // Implement the modification logic here
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ModificarTarea(),
+                        ),
+                      );
                       } else if (value == 'delete') {
-                        // Remove the task from the list
+                        
                         setState(() {
                           tasks.remove(task);
                           _filterTasks(selectedCategory, selectedStatus);
