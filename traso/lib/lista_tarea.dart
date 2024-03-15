@@ -1,3 +1,5 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traso/personalizacion.dart';
 import 'añadirTarea.dart';
@@ -8,7 +10,7 @@ import 'reporte_tarea.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
-
+  
   @override
   TaskListScreenState createState() => TaskListScreenState();
 }
@@ -48,6 +50,8 @@ class TaskListScreenState extends State<TaskListScreen> {
       status: 'Completado',
     ),
   ];
+  
+
   late List<Task> filteredTasks;
   late String selectedCategory;
   late String selectedStatus;
@@ -56,6 +60,9 @@ class TaskListScreenState extends State<TaskListScreen> {
   @override
   void initState() {
     super.initState();
+    if (FirebaseAuth.instance.currentUser?.email != 'pepe@gmail.com') {
+      tasks = []; 
+    }
     filteredTasks = List.from(tasks);
     selectedCategory = 'Todas';
     selectedStatus = 'Todos';
