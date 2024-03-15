@@ -65,7 +65,7 @@ class TaskListScreenState extends State<TaskListScreen> {
   void _navigateToAddTaskScreen(BuildContext context) async {
     final newTask = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AnadirTarea()),
+      MaterialPageRoute(builder: (context) => const AnadirTarea()),
     );
     if (newTask != null) {
       setState(() {
