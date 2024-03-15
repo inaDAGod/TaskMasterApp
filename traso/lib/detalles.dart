@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ModificarTarea extends StatefulWidget {
+  const ModificarTarea({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ModificarTareaState createState() => _ModificarTareaState();
 }
 
 class _ModificarTareaState extends State<ModificarTarea> {
   bool _recuerdame = false;
+  // ignore: prefer_final_fields
   TextEditingController _dateController = TextEditingController();
 
   @override
@@ -32,7 +36,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 192, 167, 205),
+      backgroundColor: const Color.fromARGB(255, 192, 167, 205),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -48,23 +52,23 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               "Titulo:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Titulo de tu tarea',
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "Categoria:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Selecciona la categoría',
               ),
               // Combobox para seleccionar la categoría
@@ -77,7 +81,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
               }).toList(),
               onChanged: (String? value) {},
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -85,7 +89,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Fin:",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
@@ -94,7 +98,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                         controller: _dateController,
                         readOnly: true,
                         onTap: () => _selectDate(context),
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Selecciona una fecha',
                           suffixIcon: Icon(Icons.calendar_today),
                         ),
@@ -104,8 +108,8 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "Descripcion:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -113,17 +117,17 @@ class _ModificarTareaState extends State<ModificarTarea> {
               // Textfield grande para escribir la descripción
               maxLines: null,
               keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Agregar descripción',
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "Estado:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Selecciona el estado',
               ),
               // Combobox para seleccionar el estado de la tarea
@@ -136,31 +140,31 @@ class _ModificarTareaState extends State<ModificarTarea> {
               }).toList(),
               onChanged: (String? value) {},
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   // Acción para guardar la tarea
                 },
-                child: Text('Guardar'),
                 style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all<Size>(Size(100, 50)),
-                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 82, 113, 139)),
+                  fixedSize: MaterialStateProperty.all<Size>(const Size(100, 50)),
+                  backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 82, 113, 139)),
                 ),
+                child: const Text('Guardar'),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.notifications), // Icono campana
-                SizedBox(width: 5),
-                Text(
+                const Icon(Icons.notifications), // Icono campana
+                const SizedBox(width: 5),
+                const Text(
                   "Recuerdame:",
                   style: TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Checkbox(
                   // Checkbox para recordar
                   value: _recuerdame,
@@ -172,7 +176,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -180,20 +184,20 @@ class _ModificarTareaState extends State<ModificarTarea> {
                   onPressed: () {
                     // Acción para editar la tarea
                   },
-                  child: Text('Editar'),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 82, 113, 139)),
+                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 82, 113, 139)),
                   ),
+                  child: const Text('Editar'),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
                     // borrar la tarea
                   },
-                  child: Text('Borrar'),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 82, 113, 139)),
+                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 82, 113, 139)),
                   ),
+                  child: const Text('Borrar'),
                 ),
               ],
             ),
@@ -202,10 +206,4 @@ class _ModificarTareaState extends State<ModificarTarea> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: ModificarTarea(),
-  ));
 }
