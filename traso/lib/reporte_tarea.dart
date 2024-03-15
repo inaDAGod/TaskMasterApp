@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'task.dart';
-import 'dart:core';
 
 class ReporteTarea extends StatelessWidget {
   final List<Task> tasks;
@@ -10,6 +9,7 @@ class ReporteTarea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: const Color(0xFFFFF4BA), // Cambia el color de fondo aquí
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -27,7 +27,7 @@ class ReporteTarea extends StatelessWidget {
                   const Text(
                     'REPORTE DE TAREAS',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 4, 4, 4),
+                      color: Colors.black, // Color del texto
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Times new roman',
