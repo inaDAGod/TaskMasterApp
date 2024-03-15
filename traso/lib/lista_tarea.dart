@@ -3,7 +3,7 @@ import 'package:traso/personalizacion.dart';
 import 'añadirTarea.dart';
 import 'login/auth_services.dart';
 import 'task.dart'; // Import your welcome page
-import 'reporte_tarea.dart'; // Import your reporte_tarea.dart page
+import 'reporte_tarea.dart'; 
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class TaskListScreenState extends State<TaskListScreen> {
     filteredTasks = List.from(tasks);
     selectedCategory = 'Todas';
     selectedStatus = 'Todos';
-    backgroundColor = Colors.white; // Initial background color
+    backgroundColor = Colors.white;
   }
 
   void _navigateToAddTaskScreen(BuildContext context) async {
@@ -308,6 +308,30 @@ class TaskListScreenState extends State<TaskListScreen> {
                       Text(task.description),
                       Text('Deadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year}'),
                     ],
+                  ),
+                  trailing: PopupMenuButton<String>(
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'modify',
+                        child: Text('Modificar'),
+                      ),
+                      if (task.status == 'Pendiente')
+                        const PopupMenuItem<String>(
+                          value: 'delete',
+                          child: Text('Eliminar'),
+                        ),
+                    ],
+                    onSelected: (String value) {
+                      if (value == 'modify') {
+                        // Implement the modification logic here
+                      } else if (value == 'delete') {
+                        // Remove the task from the list
+                        setState(() {
+                          tasks.remove(task);
+                          _filterTasks(selectedCategory, selectedStatus);
+                        });
+                      }
+                    },
                   ),
                 );
               },
