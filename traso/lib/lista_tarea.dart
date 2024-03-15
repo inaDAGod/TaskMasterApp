@@ -312,10 +312,21 @@ class TaskListScreenState extends State<TaskListScreen> {
                   ),
                   trailing: PopupMenuButton<String>(
                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'modify',
-                        child: Text('Modificar'),
-                      ),
+                      if (task.status != 'Completado')
+                        const PopupMenuItem<String>(
+                          value: 'completado',
+                          child: Text('Completado'),
+                        ),
+                        if (task.status == 'Completado')
+                        const PopupMenuItem<String>(
+                          value: 'reporte',
+                          child: Text('Reporte'),
+                        ),
+                        if (task.status == 'Pendiente')
+                        const PopupMenuItem<String>(
+                          value: 'enCurso',
+                          child: Text('En Curso'),
+                        ),
                       if (task.status == 'Pendiente')
                         const PopupMenuItem<String>(
                           value: 'delete',
@@ -323,19 +334,23 @@ class TaskListScreenState extends State<TaskListScreen> {
                         ),
                     ],
                     onSelected: (String value) {
-                      if (value == 'modify') {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ModificarTarea(),
-                        ),
-                      );
+                      if (value == 'completado') {
+
                       } else if (value == 'delete') {
                         
                         setState(() {
                           tasks.remove(task);
                           _filterTasks(selectedCategory, selectedStatus);
                         });
+                      }else if(value == 'enCurso'){
+
+                      }else if(value == 'reporte'){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReporteTarea(tasks: tasks),
+                          ),
+                        );
                       }
                     },
                   ),

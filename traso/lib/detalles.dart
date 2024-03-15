@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ModificarTarea extends StatefulWidget {
-  const ModificarTarea({super.key});
-
   @override
-  // ignore: library_private_types_in_public_api
   _ModificarTareaState createState() => _ModificarTareaState();
 }
 
 class _ModificarTareaState extends State<ModificarTarea> {
   bool _recuerdame = false;
-  // ignore: prefer_final_fields
   TextEditingController _dateController = TextEditingController();
+  bool _editando = false; // Variable para controlar el estado de edición
 
   @override
   void dispose() {
@@ -36,7 +33,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 192, 167, 205),
+      backgroundColor: Color.fromARGB(255, 192, 167, 205),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -52,39 +49,37 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: 20),
+            Text(
               "Titulo:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             TextFormField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Titulo de tu tarea',
               ),
+              enabled: _editando, // Habilita/deshabilita el campo según el estado de edición
             ),
-            const SizedBox(height: 10),
-            const Text(
+            SizedBox(height: 10),
+            Text(
               "Categoria:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Selecciona la categoría',
               ),
               // Combobox para seleccionar la categoría
-              items: <String>['Estudio',
-                    'Personal',
-                    'Favoritas',
-                    'Otro (varios)']
+              items: <String>['Study', 'Personal', 'Favorites', 'All']
                   .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
               }).toList(),
-              onChanged: (String? value) {},
+              onChanged: _editando ? (String? value) {} : null, // Habilita/deshabilita el dropdown según el estado de edición
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -92,7 +87,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Fin:",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
@@ -100,8 +95,8 @@ class _ModificarTareaState extends State<ModificarTarea> {
                       TextFormField(
                         controller: _dateController,
                         readOnly: true,
-                        onTap: () => _selectDate(context),
-                        decoration: const InputDecoration(
+                        onTap: _editando ? () => _selectDate(context) : null, // Habilita/deshabilita la selección de fecha según el estado de edición
+                        decoration: InputDecoration(
                           hintText: 'Selecciona una fecha',
                           suffixIcon: Icon(Icons.calendar_today),
                         ),
@@ -111,8 +106,8 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            const Text(
+            SizedBox(height: 10),
+            Text(
               "Descripcion:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -120,54 +115,57 @@ class _ModificarTareaState extends State<ModificarTarea> {
               // Textfield grande para escribir la descripción
               maxLines: null,
               keyboardType: TextInputType.multiline,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Agregar descripción',
               ),
+              enabled: _editando, // Habilita/deshabilita el campo según el estado de edición
             ),
-            const SizedBox(height: 10),
-            const Text(
+            SizedBox(height: 10),
+            Text(
               "Estado:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Selecciona el estado',
               ),
               // Combobox para seleccionar el estado de la tarea
-              items: <String>['Pendiente', 'En Curso', 'Completado']
+              items: <String>['Not started', 'In progress', 'Done']
                   .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
               }).toList(),
-              onChanged: (String? value) {},
+              onChanged: _editando ? (String? value) {} : null, // Habilita/deshabilita el dropdown según el estado de edición
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Acción para guardar la tarea
+                  setState(() {
+                    _editando = true; // Habilita la edición al presionar el botón "Editar"
+                  });
                 },
+                child: Text('Editar'),
                 style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all<Size>(const Size(100, 50)),
-                  backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 82, 113, 139)),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 82, 113, 139)),
                 ),
-                child: const Text('Guardar'),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(Icons.notifications), // Icono campana
-                const SizedBox(width: 5),
-                const Text(
+                Icon(Icons.notifications), // Icono campana
+                SizedBox(width: 5),
+                Text(
                   "Recuerdame:",
                   style: TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(width: 5),
+                SizedBox(width: 5),
                 Checkbox(
                   // Checkbox para recordar
                   value: _recuerdame,
@@ -179,19 +177,32 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 ),
               ],
             ),
+            Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // Acción para editar la tarea
+                    // Acción para guardar la tarea
                   },
+                  child: Text('Guardar'),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 82, 113, 139)),
+                    fixedSize: MaterialStateProperty.all<Size>(Size(100, 50)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 82, 113, 139)),
                   ),
-                  child: const Text('Editar'),
                 ),
-                
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción para borrar la tarea
+                  },
+                  child: Text('Borrar'),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 82, 113, 139)),
+                  ),
+                ),
               ],
             ),
           ],
