@@ -1,6 +1,8 @@
+// ignore: file_names
 class Task {
   final String title;
   final String category;
+  final DateTime startDate;
   final DateTime deadline;
   final String description;
   final bool remindMe;
@@ -12,6 +14,7 @@ class Task {
     required this.deadline,
     required this.description,
     required this.remindMe,
-    this.status = 'pendiente', // Por defecto, la tarea se establece como pendiente
-  });
+    this.status = 'Pendiente', // Por defecto, la tarea se establece como pendiente
+    
+  }): startDate = DateTime.now();
 }

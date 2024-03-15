@@ -40,12 +40,15 @@ class _ModificarTareaState extends State<ModificarTarea> {
           children: [
             // Aquí se muestra una imagen
             Expanded(
+              flex: 3, // Ocupa 3/5 del espacio disponible
               child: Center(
                 child: Image.asset(
-                    'assets/bob.jpg'),
+                  'assets/boblila.jpg',
+                  fit: BoxFit.contain, // Ajusta la imagen al espacio disponible
+                ),
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             Text(
               "Titulo:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -65,7 +68,7 @@ class _ModificarTareaState extends State<ModificarTarea> {
                 hintText: 'Selecciona la categoría',
               ),
               // Combobox para seleccionar la categoría
-              items: <String>['Categoria 1', 'Categoria 2', 'Categoria 3']
+              items: <String>['Study', 'Personal', 'Favorites', 'All']
                   .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,

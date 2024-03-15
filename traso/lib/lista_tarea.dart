@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:traso/personalizacion.dart';
 import 'añadirTarea.dart';
 import 'login/auth_services.dart';
 import 'task.dart'; // Import your welcome page
 import 'reporte_tarea.dart'; // Import your reporte_tarea.dart page
-//import 'personalizacion.dart'; // Import your personalizacion.dart page
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({Key? key}) : super(key: key);
@@ -50,6 +50,7 @@ class TaskListScreenState extends State<TaskListScreen> {
   late List<Task> filteredTasks;
   late String selectedCategory;
   late String selectedStatus;
+  late Color backgroundColor;
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class TaskListScreenState extends State<TaskListScreen> {
     filteredTasks = List.from(tasks);
     selectedCategory = 'Todas';
     selectedStatus = 'Todos';
+    backgroundColor = Colors.white; // Initial background color
   }
 
   void _navigateToAddTaskScreen(BuildContext context) async {
@@ -80,9 +82,16 @@ class TaskListScreenState extends State<TaskListScreen> {
     }).toList();
   }
 
+  void changeBackgroundColor(Color color) {
+    setState(() {
+      backgroundColor = color;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Column(
         children: [
           Container(
@@ -238,16 +247,28 @@ class TaskListScreenState extends State<TaskListScreen> {
               leading: const Icon(Icons.person),
               title: const Text('Registro'),
               onTap: () {
-                Navigator.pop(context); // Close the bottom sheet
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ReporteTarea())); // Navigate to reporte_tarea.dart
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReporteTarea(tasks: tasks),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Personalizar'),
               onTap: () {
-                Navigator.pop(context); // Close the bottom sheet
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalizacionPage())); // Navigate to personalizacion.dart
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PersonalizacionPage(
+                      onColorSelected: changeBackgroundColor,
+                    ),
+                  ),
+                );
               },
             ),
           ],
@@ -299,4 +320,3 @@ class TaskListScreenState extends State<TaskListScreen> {
     return taskLists;
   }
 }
-
